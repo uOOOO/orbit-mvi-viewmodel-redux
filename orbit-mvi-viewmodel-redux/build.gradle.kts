@@ -1,11 +1,10 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
@@ -30,6 +29,7 @@ kotlin {
         nodejs()
     }
 
+    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
         nodejs()
@@ -74,10 +74,19 @@ kotlin {
     jvm("desktop")
 
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    dependencies {
-        implementation(libs.androidx.lifecycle.viewmodel)
-        implementation(libs.orbit.viewmodel)
+    sourceSets {
+        commonMain {
+            dependencies {
+                api(libs.orbit.viewmodel)
+            }
+        }
 
-        testImplementation(libs.kotlin.test)
+        commonTest {
+            dependencies {
+                implementation(libs.kotlin.test)
+                implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.orbit.test)
+            }
+        }
     }
 }
