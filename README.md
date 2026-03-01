@@ -70,24 +70,34 @@ sealed interface MainSideEffect {
 
 ### 2. Implement Middleware
 
-Implement `Middleware` to handle business logic.
+Implement `Middleware` to handle business logic. You can easily emit events using `change()`, `dispatch()`, and `sideEffect()` helper functions provided within the `Middleware` scope.
 
+#### Implementing Interface (Standard)
 ```kotlin
 class MainMiddleware : Middleware<MainState, MainAction, MainChange, MainSideEffect> {
     override fun handle(
         action: MainAction,
         state: MainState
-    ): Flow<MiddlewareResult<MainAction, MainChange, MainSideEffect>> = flow {
-        when (action) {
-            MainAction.ClickPlus -> emit(MiddlewareResult.Change(MainChange.Increment))
-            MainAction.ClickMinus -> emit(MiddlewareResult.Change(MainChange.Decrement))
-            MainAction.LoadData -> {
-                emit(MiddlewareResult.Change(MainChange.SetLoading(true)))
-                // Perform async work...
-                emit(MiddlewareResult.Change(MainChange.SetLoading(false)))
-                emit(MiddlewareResult.SideEffect(MainSideEffect.ShowToast("Data Loaded")))
-            }
+    ): Flow<MiddlewareResult<MainAction, MainChange, MainSideEffect>> = when (action) {
+        MainAction.ClickPlus -> change(MainChange.Increment)
+        MainAction.ClickMinus -> change(MainChange.Decrement)
+        MainAction.LoadData -> flow {
+            change(MainChange.SetLoading(true))
+            // Perform async work...
+            change(MainChange.SetLoading(false))
+            sideEffect(MainSideEffect.ShowToast("Data Loaded"))
         }
+    }
+}
+```
+
+#### Using DSL
+For simple cases, you can use the `middleware` factory function.
+```kotlin
+val mainMiddleware = middleware<MainState, MainAction, MainChange, MainSideEffect> { action, state ->
+    when (action) {
+        MainAction.ClickPlus -> change(MainChange.Increment)
+        else -> emptyFlow()
     }
 }
 ```
