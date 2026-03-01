@@ -1,0 +1,78 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <orbit-mvi-viewmodel-redux:orbit-mvi-viewmodel-redux>
+abstract fun interface <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?, #D: kotlin/Any?> com.uoooo.orbitmvi.viewmodel.redux/Middleware { // com.uoooo.orbitmvi.viewmodel.redux/Middleware|null[0]
+    abstract fun handle(#B, #A): kotlinx.coroutines.flow/Flow<com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult<#B, #C, #D>> // com.uoooo.orbitmvi.viewmodel.redux/Middleware.handle|handle(1:1;1:0){}[0]
+    open fun change(#C): kotlinx.coroutines.flow/Flow<com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult<#B, #C, #D>> // com.uoooo.orbitmvi.viewmodel.redux/Middleware.change|change(1:2){}[0]
+    open fun dispatch(#B): kotlinx.coroutines.flow/Flow<com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult<#B, #C, #D>> // com.uoooo.orbitmvi.viewmodel.redux/Middleware.dispatch|dispatch(1:1){}[0]
+    open fun sideEffect(#D): kotlinx.coroutines.flow/Flow<com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult<#B, #C, #D>> // com.uoooo.orbitmvi.viewmodel.redux/Middleware.sideEffect|sideEffect(1:3){}[0]
+    open suspend fun (kotlinx.coroutines.flow/FlowCollector<com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult<#B, #C, #D>>).change(#C) // com.uoooo.orbitmvi.viewmodel.redux/Middleware.change|change@kotlinx.coroutines.flow.FlowCollector<com.uoooo.orbitmvi.viewmodel.redux.MiddlewareResult<1:1,1:2,1:3>>(1:2){}[0]
+    open suspend fun (kotlinx.coroutines.flow/FlowCollector<com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult<#B, #C, #D>>).dispatch(#B) // com.uoooo.orbitmvi.viewmodel.redux/Middleware.dispatch|dispatch@kotlinx.coroutines.flow.FlowCollector<com.uoooo.orbitmvi.viewmodel.redux.MiddlewareResult<1:1,1:2,1:3>>(1:1){}[0]
+    open suspend fun (kotlinx.coroutines.flow/FlowCollector<com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult<#B, #C, #D>>).sideEffect(#D) // com.uoooo.orbitmvi.viewmodel.redux/Middleware.sideEffect|sideEffect@kotlinx.coroutines.flow.FlowCollector<com.uoooo.orbitmvi.viewmodel.redux.MiddlewareResult<1:1,1:2,1:3>>(1:3){}[0]
+}
+
+abstract interface <#A: kotlin/Any> com.uoooo.orbitmvi.viewmodel.redux/SideEffectHandler { // com.uoooo.orbitmvi.viewmodel.redux/SideEffectHandler|null[0]
+    abstract suspend fun handle(#A) // com.uoooo.orbitmvi.viewmodel.redux/SideEffectHandler.handle|handle(1:0){}[0]
+}
+
+abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> com.uoooo.orbitmvi.viewmodel.redux/Reducer { // com.uoooo.orbitmvi.viewmodel.redux/Reducer|null[0]
+    abstract fun reduce(#A, #B): #A // com.uoooo.orbitmvi.viewmodel.redux/Reducer.reduce|reduce(1:0;1:1){}[0]
+}
+
+sealed interface <#A: out kotlin/Any?, #B: out kotlin/Any?, #C: out kotlin/Any?> com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult { // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult|null[0]
+    final class <#A1: kotlin/Any?> Action : com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult<#A1, kotlin/Nothing, kotlin/Nothing> { // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Action|null[0]
+        constructor <init>(#A1) // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Action.<init>|<init>(1:0){}[0]
+
+        final val action // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Action.action|{}action[0]
+            final fun <get-action>(): #A1 // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Action.action.<get-action>|<get-action>(){}[0]
+
+        final fun component1(): #A1 // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Action.component1|component1(){}[0]
+        final fun copy(#A1 = ...): com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Action<#A1> // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Action.copy|copy(1:0){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Action.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Action.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Action.toString|toString(){}[0]
+    }
+
+    final class <#A1: kotlin/Any?> Change : com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult<kotlin/Nothing, #A1, kotlin/Nothing> { // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Change|null[0]
+        constructor <init>(#A1) // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Change.<init>|<init>(1:0){}[0]
+
+        final val change // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Change.change|{}change[0]
+            final fun <get-change>(): #A1 // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Change.change.<get-change>|<get-change>(){}[0]
+
+        final fun component1(): #A1 // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Change.component1|component1(){}[0]
+        final fun copy(#A1 = ...): com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Change<#A1> // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Change.copy|copy(1:0){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Change.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Change.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.Change.toString|toString(){}[0]
+    }
+
+    final class <#A1: kotlin/Any?> SideEffect : com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult<kotlin/Nothing, kotlin/Nothing, #A1> { // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.SideEffect|null[0]
+        constructor <init>(#A1) // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.SideEffect.<init>|<init>(1:0){}[0]
+
+        final val effect // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.SideEffect.effect|{}effect[0]
+            final fun <get-effect>(): #A1 // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.SideEffect.effect.<get-effect>|<get-effect>(){}[0]
+
+        final fun component1(): #A1 // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.SideEffect.component1|component1(){}[0]
+        final fun copy(#A1 = ...): com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.SideEffect<#A1> // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.SideEffect.copy|copy(1:0){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.SideEffect.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.SideEffect.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult.SideEffect.toString|toString(){}[0]
+    }
+}
+
+abstract class <#A: kotlin/Any, #B: kotlin/Any, #C: kotlin/Any, #D: kotlin/Any> com.uoooo.orbitmvi.viewmodel.redux/ReduxViewModel : androidx.lifecycle/ViewModel, org.orbitmvi.orbit/ContainerHost<#A, #D> { // com.uoooo.orbitmvi.viewmodel.redux/ReduxViewModel|null[0]
+    constructor <init>(#A, kotlin.collections/List<com.uoooo.orbitmvi.viewmodel.redux/Middleware<#A, #B, #C, #D>>, com.uoooo.orbitmvi.viewmodel.redux/Reducer<#A, #C>) // com.uoooo.orbitmvi.viewmodel.redux/ReduxViewModel.<init>|<init>(1:0;kotlin.collections.List<com.uoooo.orbitmvi.viewmodel.redux.Middleware<1:0,1:1,1:2,1:3>>;com.uoooo.orbitmvi.viewmodel.redux.Reducer<1:0,1:2>){}[0]
+
+    open val container // com.uoooo.orbitmvi.viewmodel.redux/ReduxViewModel.container|{}container[0]
+        open fun <get-container>(): org.orbitmvi.orbit/Container<#A, #D> // com.uoooo.orbitmvi.viewmodel.redux/ReduxViewModel.container.<get-container>|<get-container>(){}[0]
+
+    final fun dispatch(#B) // com.uoooo.orbitmvi.viewmodel.redux/ReduxViewModel.dispatch|dispatch(1:1){}[0]
+    open suspend fun onCreate(#A) // com.uoooo.orbitmvi.viewmodel.redux/ReduxViewModel.onCreate|onCreate(1:0){}[0]
+}
+
+final fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?, #D: kotlin/Any?> com.uoooo.orbitmvi.viewmodel.redux/middleware(kotlin/Function3<com.uoooo.orbitmvi.viewmodel.redux/Middleware<#A, #B, #C, #D>, #B, #A, kotlinx.coroutines.flow/Flow<com.uoooo.orbitmvi.viewmodel.redux/MiddlewareResult<#B, #C, #D>>>): com.uoooo.orbitmvi.viewmodel.redux/Middleware<#A, #B, #C, #D> // com.uoooo.orbitmvi.viewmodel.redux/middleware|middleware(kotlin.Function3<com.uoooo.orbitmvi.viewmodel.redux.Middleware<0:0,0:1,0:2,0:3>,0:1,0:0,kotlinx.coroutines.flow.Flow<com.uoooo.orbitmvi.viewmodel.redux.MiddlewareResult<0:1,0:2,0:3>>>){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>;3§<kotlin.Any?>}[0]

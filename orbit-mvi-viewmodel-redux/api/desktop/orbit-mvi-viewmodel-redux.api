@@ -1,0 +1,76 @@
+public final class com/uoooo/orbitmvi/viewmodel/redux/InterfacesKt {
+	public static final fun middleware (Lkotlin/jvm/functions/Function3;)Lcom/uoooo/orbitmvi/viewmodel/redux/Middleware;
+}
+
+public abstract interface class com/uoooo/orbitmvi/viewmodel/redux/Middleware {
+	public fun change (Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public fun change (Lkotlinx/coroutines/flow/FlowCollector;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun dispatch (Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public fun dispatch (Lkotlinx/coroutines/flow/FlowCollector;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun handle (Ljava/lang/Object;Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public fun sideEffect (Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public fun sideEffect (Lkotlinx/coroutines/flow/FlowCollector;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/uoooo/orbitmvi/viewmodel/redux/Middleware$DefaultImpls {
+	public static fun change (Lcom/uoooo/orbitmvi/viewmodel/redux/Middleware;Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static fun change (Lcom/uoooo/orbitmvi/viewmodel/redux/Middleware;Lkotlinx/coroutines/flow/FlowCollector;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun dispatch (Lcom/uoooo/orbitmvi/viewmodel/redux/Middleware;Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static fun dispatch (Lcom/uoooo/orbitmvi/viewmodel/redux/Middleware;Lkotlinx/coroutines/flow/FlowCollector;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun sideEffect (Lcom/uoooo/orbitmvi/viewmodel/redux/Middleware;Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static fun sideEffect (Lcom/uoooo/orbitmvi/viewmodel/redux/Middleware;Lkotlinx/coroutines/flow/FlowCollector;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class com/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult {
+}
+
+public final class com/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult$Action : com/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Lcom/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult$Action;
+	public static synthetic fun copy$default (Lcom/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult$Action;Ljava/lang/Object;ILjava/lang/Object;)Lcom/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult$Action;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAction ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult$Change : com/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Lcom/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult$Change;
+	public static synthetic fun copy$default (Lcom/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult$Change;Ljava/lang/Object;ILjava/lang/Object;)Lcom/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult$Change;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChange ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult$SideEffect : com/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Lcom/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult$SideEffect;
+	public static synthetic fun copy$default (Lcom/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult$SideEffect;Ljava/lang/Object;ILjava/lang/Object;)Lcom/uoooo/orbitmvi/viewmodel/redux/MiddlewareResult$SideEffect;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEffect ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/uoooo/orbitmvi/viewmodel/redux/Reducer {
+	public abstract fun reduce (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract class com/uoooo/orbitmvi/viewmodel/redux/ReduxViewModel : androidx/lifecycle/ViewModel, org/orbitmvi/orbit/ContainerHost {
+	public fun <init> (Ljava/lang/Object;Ljava/util/List;Lcom/uoooo/orbitmvi/viewmodel/redux/Reducer;)V
+	public final fun dispatch (Ljava/lang/Object;)V
+	public fun getContainer ()Lorg/orbitmvi/orbit/Container;
+	public fun intent (ZLkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/Job;
+	protected fun onCreate (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun subIntent (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class com/uoooo/orbitmvi/viewmodel/redux/SideEffectHandler {
+	public abstract fun handle (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
