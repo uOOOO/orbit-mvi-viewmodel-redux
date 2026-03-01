@@ -1,7 +1,5 @@
 package com.uoooo.orbitmvi.viewmodel.redux
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.orbitmvi.orbit.test.test
 import kotlin.test.Test
@@ -16,27 +14,14 @@ class ReduxViewModelTest {
         }
     }
 
-    private val testMiddleware =
-        object : Middleware<TestState, TestAction, TestChange, TestSideEffect> {
-            override fun handle(
-                action: TestAction,
-                state: TestState,
-            ): Flow<MiddlewareResult<TestAction, TestChange, TestSideEffect>> {
-                return when (action) {
-                    TestAction.ClickPlus ->
-                        flowOf(MiddlewareResult.Change(TestChange.Increment))
-
-                    TestAction.ClickMinus ->
-                        flowOf(MiddlewareResult.Change(TestChange.Decrement))
-
-                    TestAction.TriggerToast ->
-                        flowOf(MiddlewareResult.SideEffect(TestSideEffect.ShowToast("Hello")))
-
-                    TestAction.ChainAction ->
-                        flowOf(MiddlewareResult.Action(TestAction.ClickPlus))
-                }
-            }
+    private val testMiddleware = middleware<TestState, TestAction, TestChange, TestSideEffect> { action, _ ->
+        when (action) {
+            TestAction.ClickPlus -> change(TestChange.Increment)
+            TestAction.ClickMinus -> change(TestChange.Decrement)
+            TestAction.TriggerToast -> sideEffect(TestSideEffect.ShowToast("Hello"))
+            TestAction.ChainAction -> dispatch(TestAction.ClickPlus)
         }
+    }
 
     @Test
     fun `dispatch ClickPlus action updates state correctly via Change`() = runTest {

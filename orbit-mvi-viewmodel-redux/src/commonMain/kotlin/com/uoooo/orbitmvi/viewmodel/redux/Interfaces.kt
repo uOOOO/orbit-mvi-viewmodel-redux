@@ -1,10 +1,41 @@
 package com.uoooo.orbitmvi.viewmodel.redux
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.flowOf
 
-interface Middleware<STATE, ACTION, CHANGE, SIDE_EFFECT> {
+fun interface Middleware<STATE, ACTION, CHANGE, SIDE_EFFECT> {
     fun handle(action: ACTION, state: STATE): Flow<MiddlewareResult<ACTION, CHANGE, SIDE_EFFECT>>
+
+    fun dispatch(action: ACTION): Flow<MiddlewareResult<ACTION, CHANGE, SIDE_EFFECT>> =
+        flowOf(MiddlewareResult.Action(action))
+
+    fun change(change: CHANGE): Flow<MiddlewareResult<ACTION, CHANGE, SIDE_EFFECT>> =
+        flowOf(MiddlewareResult.Change(change))
+
+    fun sideEffect(sideEffect: SIDE_EFFECT): Flow<MiddlewareResult<ACTION, CHANGE, SIDE_EFFECT>> =
+        flowOf(MiddlewareResult.SideEffect(sideEffect))
+
+    suspend fun FlowCollector<MiddlewareResult<ACTION, CHANGE, SIDE_EFFECT>>.dispatch(action: ACTION) =
+        emit(MiddlewareResult.Action(action))
+
+    suspend fun FlowCollector<MiddlewareResult<ACTION, CHANGE, SIDE_EFFECT>>.change(change: CHANGE) =
+        emit(MiddlewareResult.Change(change))
+
+    suspend fun FlowCollector<MiddlewareResult<ACTION, CHANGE, SIDE_EFFECT>>.sideEffect(sideEffect: SIDE_EFFECT) =
+        emit(MiddlewareResult.SideEffect(sideEffect))
 }
+
+fun <STATE, ACTION, CHANGE, SIDE_EFFECT> middleware(
+    handler: Middleware<STATE, ACTION, CHANGE, SIDE_EFFECT>.(action: ACTION, state: STATE) -> Flow<MiddlewareResult<ACTION, CHANGE, SIDE_EFFECT>>,
+): Middleware<STATE, ACTION, CHANGE, SIDE_EFFECT> =
+    object : Middleware<STATE, ACTION, CHANGE, SIDE_EFFECT> {
+        override fun handle(
+            action: ACTION,
+            state: STATE,
+        ): Flow<MiddlewareResult<ACTION, CHANGE, SIDE_EFFECT>> =
+            handler(action, state)
+    }
 
 sealed interface MiddlewareResult<out ACTION, out CHANGE, out SIDE_EFFECT> {
     data class Action<ACTION>(
