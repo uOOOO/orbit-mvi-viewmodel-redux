@@ -67,7 +67,7 @@ interface SideEffectHandler<SIDE_EFFECT : Any> {
 }
 
 fun <SIDE_EFFECT : Any> sideEffectHandler(
-    handler: SideEffectHandler<SIDE_EFFECT>.(sideEffect: SIDE_EFFECT) -> Unit,
+    handler: suspend SideEffectHandler<SIDE_EFFECT>.(sideEffect: SIDE_EFFECT) -> Unit,
 ): SideEffectHandler<SIDE_EFFECT> =
     object : SideEffectHandler<SIDE_EFFECT> {
         override suspend fun handle(sideEffect: SIDE_EFFECT) = handler(sideEffect)
