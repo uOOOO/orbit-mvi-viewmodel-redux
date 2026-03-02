@@ -65,3 +65,10 @@ fun <STATE, CHANGE> reducer(
 interface SideEffectHandler<SIDE_EFFECT : Any> {
     suspend fun handle(sideEffect: SIDE_EFFECT)
 }
+
+fun <SIDE_EFFECT : Any> sideEffectHandler(
+    handler: SideEffectHandler<SIDE_EFFECT>.(sideEffect: SIDE_EFFECT) -> Unit,
+): SideEffectHandler<SIDE_EFFECT> =
+    object : SideEffectHandler<SIDE_EFFECT> {
+        override suspend fun handle(sideEffect: SIDE_EFFECT) = handler(sideEffect)
+    }
