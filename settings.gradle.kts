@@ -1,3 +1,5 @@
+rootProject.name = "orbit-mvi-viewmodel-redux"
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -32,3 +34,8 @@ dependencyResolutionManagement {
 }
 
 include(":orbit-mvi-viewmodel-redux")
+include(
+    ":samples:counter:androidApp",
+    ":samples:counter:desktopApp",
+    ":samples:counter:shared",
+)
