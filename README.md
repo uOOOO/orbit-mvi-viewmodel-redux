@@ -177,4 +177,4 @@ lifecycleScope.launch {
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the Apache License, Version 2.0.
