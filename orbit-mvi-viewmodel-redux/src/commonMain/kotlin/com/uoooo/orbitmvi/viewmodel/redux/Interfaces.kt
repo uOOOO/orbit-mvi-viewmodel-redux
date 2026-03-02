@@ -55,6 +55,13 @@ interface Reducer<STATE, CHANGE> {
     fun reduce(state: STATE, change: CHANGE): STATE
 }
 
+fun <STATE, CHANGE> reducer(
+    handler: Reducer<STATE, CHANGE>.(state: STATE, change: CHANGE) -> STATE,
+): Reducer<STATE, CHANGE> =
+    object : Reducer<STATE, CHANGE> {
+        override fun reduce(state: STATE, change: CHANGE): STATE = handler(state, change)
+    }
+
 interface SideEffectHandler<SIDE_EFFECT : Any> {
     suspend fun handle(sideEffect: SIDE_EFFECT)
 }

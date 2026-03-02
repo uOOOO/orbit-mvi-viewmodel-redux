@@ -1,5 +1,6 @@
 public final class com/uoooo/orbitmvi/viewmodel/redux/InterfacesKt {
 	public static final fun middleware (Lkotlin/jvm/functions/Function3;)Lcom/uoooo/orbitmvi/viewmodel/redux/Middleware;
+	public static final fun reducer (Lkotlin/jvm/functions/Function3;)Lcom/uoooo/orbitmvi/viewmodel/redux/Reducer;
 }
 
 public abstract interface class com/uoooo/orbitmvi/viewmodel/redux/Middleware {

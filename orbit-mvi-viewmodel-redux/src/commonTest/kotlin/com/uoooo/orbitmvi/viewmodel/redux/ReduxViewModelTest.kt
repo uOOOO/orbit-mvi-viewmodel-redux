@@ -7,12 +7,10 @@ import org.orbitmvi.orbit.test.test
 import kotlin.test.Test
 
 class ReduxViewModelTest {
-    private val testReducer = object : Reducer<TestState, TestChange> {
-        override fun reduce(state: TestState, change: TestChange): TestState {
-            return when (change) {
-                is TestChange.Increment -> state.copy(count = state.count + 1)
-                is TestChange.Decrement -> state.copy(count = state.count - 1)
-            }
+    private val testReducer = reducer<TestState, TestChange> { state, change ->
+        when (change) {
+            is TestChange.Increment -> state.copy(count = state.count + 1)
+            is TestChange.Decrement -> state.copy(count = state.count - 1)
         }
     }
 
