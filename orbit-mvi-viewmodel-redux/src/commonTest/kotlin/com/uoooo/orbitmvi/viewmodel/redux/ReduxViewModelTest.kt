@@ -1,10 +1,18 @@
 package com.uoooo.orbitmvi.viewmodel.redux
 
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import org.orbitmvi.orbit.test.test
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ReduxViewModelTest {
     private val testReducer = reducer<TestState, TestChange> { state, change ->
@@ -130,6 +138,38 @@ class ReduxViewModelTest {
 
             job.cancel()
         }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `SideEffectHandler handles emitted side effects`() = runTest {
+        val viewModel = TestViewModel(listOf(testMiddleware), testReducer)
+        val receivedSideEffects = mutableListOf<TestSideEffect>()
+
+        val completion = CompletableDeferred<Unit>()
+
+        val handler = sideEffectHandler { sideEffect ->
+            receivedSideEffects.add(sideEffect)
+            completion.complete(Unit)
+        }
+
+        val collectJob = launch {
+            viewModel.container.sideEffectFlow.collect {
+                handler.handle(it)
+            }
+        }
+
+        viewModel.dispatch(TestAction.TriggerToast)
+
+        withContext(Dispatchers.Default.limitedParallelism(1)) {
+            withTimeout(1_000) {
+                completion.await()
+            }
+        }
+
+        assertEquals(listOf(TestSideEffect.ShowToast("Hello")), receivedSideEffects.toList())
+
+        collectJob.cancelAndJoin()
     }
 
     private data class TestState(val count: Int = 0)
